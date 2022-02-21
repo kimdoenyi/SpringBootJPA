@@ -25,8 +25,18 @@ public class OrderItem {
     private int orderPrice; // 주문 가격
     private int count;  // 주문 수량
 
-    // == 비즈니스 로직 ==
+    // == 생성 메서드 ==
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
 
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    // == 비즈니스 로직 ==
     /**
      * 재고 수량을 원복해준다
      */
