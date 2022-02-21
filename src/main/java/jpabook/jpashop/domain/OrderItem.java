@@ -24,4 +24,17 @@ public class OrderItem {
 
     private int orderPrice; // 주문 가격
     private int count;  // 주문 수량
+
+    // == 비즈니스 로직 ==
+
+    /**
+     * 재고 수량을 원복해준다
+     */
+    public void cancel() {
+        getItem().addStock(count);
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
