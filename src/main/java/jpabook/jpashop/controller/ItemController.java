@@ -64,6 +64,9 @@ public class ItemController {
 
     @PostMapping("items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form, @PathVariable String itemId) {
+        // 준영속객체
+        // JPA에서 생각해보면 이미 BOOk 은 생성된 상태로 ID 가 존재했기때문에
+        // 객체는 새로 생성될 수 있지만 엔티티매니저가 직접 관리하지 않음
         Book book = new Book();
 
         book.setId(form.getId());

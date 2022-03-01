@@ -17,7 +17,8 @@ public class ItemRepository {
         if(item.getId() == null) {  // 새로 생성하는 객체라는 뜻 ,, id 가 null 이라는건 첫번째라는 의미
             em.persist(item);
         } else {
-            em.merge(item); // update 비슷한것 ,, 뒤에서 다시 설명
+            em.merge(item);
+            // merge 는 변경감지 코드랑 동일하다.
         }
     }
 
