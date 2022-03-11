@@ -21,11 +21,9 @@ public class JpaMain {
         // code
         try {
             Members findMember = em.find(Members.class, 1L);
-            System.out.println("findMember.getId() = " + findMember.getId());
-            System.out.println("findMember.getName() = " + findMember.getName());
+            findMember.setName("HelloJPA");
 
             tx.commit();
-
         } catch(Exception e) {
             tx.rollback();
         } finally {
