@@ -20,12 +20,12 @@ public class JpaMain {
 
         // code
         try {
-            Members member = new Members();
-            member.setId(2L);
-            member.setName("HelloB");
-            em.persist(member); // 멤버가 저장됨
+            Members findMember = em.find(Members.class, 1L);
+            System.out.println("findMember.getId() = " + findMember.getId());
+            System.out.println("findMember.getName() = " + findMember.getName());
 
             tx.commit();
+
         } catch(Exception e) {
             tx.rollback();
         } finally {
