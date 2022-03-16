@@ -21,16 +21,12 @@ public class JpaMain {
 
         // code
         try {
-            // 객체 생성 -> 비영속
-            Members member = new Members();
-            member.setId(100L);
-            member.setName("HelloJPA");
+            // 영속
+            Members findMember1 = em.find(Members.class, 101L);
+            Members findMember2 = em.find(Members.class, 101L);
 
-            // 영속 -> 영속성 컨텍스트가 객체를 관리하기 시작함
-            System.out.println("--------before-------");
-            em.persist(member);
-            System.out.println("-------after---------");
-            em.detach(member);
+            // 1차캐시가 있기 때문에 영속 엔티티의 동일성 보장
+            System.out.println("result = " + (findMember2==findMember1));
             tx.commit();
         } catch(Exception e) {
             tx.rollback();
