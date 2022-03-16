@@ -21,16 +21,16 @@ public class JpaMain {
 
         // code
         try {
-            // JPQL
-            // 대상이 테이블이 아니라 객체임, Members > 테이블 X , 객체 O
-            List<Members> result = em.createQuery("select m from Members as m")
-                                    .setFirstResult(0)  // 페이징 , 0부터 시작임
-                                    .setMaxResults(10)  // 페이징
-                                    .getResultList();
+            // 객체 생성 -> 비영속
+            Members member = new Members();
+            member.setId(100L);
+            member.setName("HelloJPA");
 
-            for(Members member : result) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            // 영속 -> 영속성 컨텍스트가 객체를 관리하기 시작함
+            System.out.println("--------before-------");
+            em.persist(member);
+            System.out.println("-------after---------");
+            em.detach(member);
             tx.commit();
         } catch(Exception e) {
             tx.rollback();
