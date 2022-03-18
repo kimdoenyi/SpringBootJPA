@@ -14,6 +14,15 @@ public class Members {
     private Long id;
     private String name;
 
+    // 동적 생성을 위한 기본 생성자 필수
+    public Members() {
+    }
+
+    public Members(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

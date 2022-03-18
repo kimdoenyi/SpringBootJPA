@@ -21,12 +21,12 @@ public class JpaMain {
 
         // code
         try {
-            // 영속
-            Members findMember1 = em.find(Members.class, 101L);
-            Members findMember2 = em.find(Members.class, 101L);
+            // 데이터 변경시
+            //Members members = em.find(Members.class, 150L);
+            //members.setName("Update New Name");
 
-            // 1차캐시가 있기 때문에 영속 엔티티의 동일성 보장
-            System.out.println("result = " + (findMember2==findMember1));
+            System.out.println(" ============================ " );
+
             tx.commit();
         } catch(Exception e) {
             tx.rollback();
