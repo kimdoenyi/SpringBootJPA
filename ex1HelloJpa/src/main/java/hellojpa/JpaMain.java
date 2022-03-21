@@ -13,7 +13,6 @@ import java.util.List;
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-
         EntityManager em = emf.createEntityManager();   //  고객의 요청이 올때마다 생겼다가 버렸다가 생겼다가 버렸다
 
         EntityTransaction tx = em.getTransaction(); // db connection 을 얻는다고 생각하면 됨
@@ -22,8 +21,8 @@ public class JpaMain {
         // code
         try {
             // 데이터 변경시
-            //Members members = em.find(Members.class, 150L);
-            //members.setName("Update New Name");
+            Members members = em.find(Members.class, 150L);
+            members.setName("Update New Name");
 
             System.out.println(" ============================ " );
 
