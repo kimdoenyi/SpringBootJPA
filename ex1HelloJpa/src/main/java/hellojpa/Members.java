@@ -1,43 +1,37 @@
 package hellojpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 기존에 만들어둔 멤버가 삭제가 안돼서 Members 로 생성함
  *
  */
 @Entity
-@Table(name = "MBR")    // MBR 테이블과 매핑됨, 테이블명 바꿀때 사용
 public class Members {
 
-    @Id // PK 가 뭔지 알려줘야함
-    private Long id;
-    private String name;
+    @Id
+    private Long id;    // pk 매핑
 
-    // 동적 생성을 위한 기본 생성자 필수
-    public Members() {
-    }
+    @Column(name = "name")  // column명은 name
+    private String username;    // 객체는 username
 
-    public Members(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private Integer age;
 
-    public Long getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)    // DB 에는 enum 타입이 없음, 이거 써주면 됨
+    private RoleType roleType;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // DB 는 자바랑 다르게 날짜를 3가지로 구분하기때문에 선언해줘야함
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
-    public String getName() {
-        return name;
-    }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Lob    // 큰 컨텐츠를 넣고싶을때
+    private String description;
+
+    public Members() {}
+
+
 }

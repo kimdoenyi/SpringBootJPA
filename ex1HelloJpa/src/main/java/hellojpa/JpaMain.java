@@ -20,13 +20,7 @@ public class JpaMain {
 
         // code
         try {
-            // 데이터 변경시
-            Members members = em.find(Members.class, 150L);
-            members.setName("Update New Name");
 
-            System.out.println(" ============================ " );
-
-            tx.commit();
         } catch(Exception e) {
             tx.rollback();
         } finally {
