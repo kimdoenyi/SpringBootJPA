@@ -20,7 +20,13 @@ public class JpaMain {
 
         // code
         try {
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
+            Members member = new Members();
+            member.setUsername("Test");
+            em.persist(member);
         } catch(Exception e) {
             tx.rollback();
         } finally {

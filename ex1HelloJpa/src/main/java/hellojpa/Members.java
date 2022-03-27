@@ -13,25 +13,30 @@ public class Members {
     @Id
     private Long id;    // pk 매핑
 
-    @Column(name = "name")  // column명은 name
-    private String username;    // 객체는 username
+    @Column(name = "USERNAME")
+    private String username;
 
-    private Integer age;
+    /*@Column(name = "TEAM_ID")
+    private Long teamId;*/
 
-    @Enumerated(EnumType.STRING)    // DB 에는 enum 타입이 없음, 이거 써주면 됨
-    private RoleType roleType;
+    @ManyToOne  // 멤버 기준에서 다대일 - 멤버 N : 팀 1
+    @JoinColumn(name = "TEAM_ID")   // 외래키로 연관관계있으니까 매핑 필수 !
+    private Team team;
 
-    // DB 는 자바랑 다르게 날짜를 3가지로 구분하기때문에 선언해줘야함
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    public Long getId() {
+        return id;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    @Lob    // 큰 컨텐츠를 넣고싶을때
-    private String description;
+    public String getUsername() {
+        return username;
+    }
 
-    public Members() {}
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 }
