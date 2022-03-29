@@ -10,14 +10,11 @@ import java.util.Date;
 @Entity
 public class Members {
 
-    @Id
+    @Id @GeneratedValue
     private Long id;    // pk 매핑
 
     @Column(name = "USERNAME")
     private String username;
-
-    /*@Column(name = "TEAM_ID")
-    private Long teamId;*/
 
     @ManyToOne  // 멤버 기준에서 다대일 - 멤버 N : 팀 1
     @JoinColumn(name = "TEAM_ID")   // 외래키로 연관관계있으니까 매핑 필수 !
@@ -39,4 +36,11 @@ public class Members {
         this.username = username;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }

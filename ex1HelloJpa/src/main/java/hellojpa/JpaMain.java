@@ -26,8 +26,23 @@ public class JpaMain {
 
             Members member = new Members();
             member.setUsername("Test");
+            member.setTeam(team);
             em.persist(member);
+
+            // 아래 두개 써줘야 디비에서 값을 깔끔하게 가져옴
+            em.flush();
+            em.clear();
+
+            Members findMember = em.find(Members.class, member.getId());
+            List<Members> members = findMember.getTeam().getMembers();
+
+            for(Members m : members) {
+                System.out.println("m. = " + m.getUsername());
+            }
+
+            tx.commit();
         } catch(Exception e) {
+            e.printStackTrace();
             tx.rollback();
         } finally {
             em.close();

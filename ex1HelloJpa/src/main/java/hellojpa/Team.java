@@ -1,9 +1,8 @@
 package hellojpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Team {
@@ -11,8 +10,10 @@ public class Team {
     @Id @GeneratedValue
     @Column(name = "TEAM_ID")
     private Long id;
-
     private String name;
+
+    @OneToMany(mappedBy = "team")
+    private List<Members> members = new ArrayList<>(); // ArrayList 로 해야 add 할때 nullPointer 안남
 
     public Long getId() {
         return id;
@@ -28,5 +29,13 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Members> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Members> members) {
+        this.members = members;
     }
 }
