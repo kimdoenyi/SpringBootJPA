@@ -15,6 +15,10 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Members> members = new ArrayList<>(); // ArrayList 로 해야 add 할때 nullPointer 안남
 
+    public void addMember(Members member) {
+        member.setTeam(this);
+        members.add(member);
+    }
     public Long getId() {
         return id;
     }
