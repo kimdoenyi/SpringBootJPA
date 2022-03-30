@@ -13,7 +13,6 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction(); // db connection 을 얻는다고 생각하면 됨
         tx.begin();
 
-        // code
         try {
 
         } catch(Exception e) {
