@@ -16,6 +16,7 @@ public class Members {
     @Column(name = "USERNAME")
     private String username;
 
+    // 다대일 단방향
     @ManyToOne  // 멤버 기준에서 다대일 - 멤버 N : 팀 1
     @JoinColumn(name = "TEAM_ID")   // 외래키로 연관관계있으니까 매핑 필수 !
     private Team team;

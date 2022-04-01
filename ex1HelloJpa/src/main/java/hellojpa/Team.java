@@ -12,9 +12,11 @@ public class Team {
     private Long id;
     private String name;
 
+    // 양방향 설계
     @OneToMany(mappedBy = "team")
     private List<Members> members = new ArrayList<>(); // ArrayList 로 해야 add 할때 nullPointer 안남
 
+    // 연관관계 편의 메서드
     public void addMember(Members member) {
         member.setTeam(this);
         members.add(member);
