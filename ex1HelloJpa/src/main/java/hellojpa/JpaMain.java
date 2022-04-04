@@ -20,30 +20,18 @@ public class JpaMain {
 
         // code
         try {
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
 
-            // 저장
             Members member = new Members();
             member.setUsername("member1");
+
             em.persist(member);
 
-            // 양방향일땐 둘 다 넣어주는게 좋다 ~
-            // team.getMembers().add(member);
-            // 연관관계 편의 메서드 -> 이건 하나만 만들것
-            team.addMember(member);
+            Team team = new Team();
+            team.setName("TeamA");
+            team.getMembers().add(member);
 
-            // 아래 두개 써줘야 디비에서 값을 깔끔하게 가져옴
-            em.flush();
-            em.clear();
+            em.persist(team);
 
-            Team team1 = em.find(Team.class, team.getId()); // 1차캐시
-            List<Members> members = team1.getMembers();
-            
-            for(Members m : members) {
-                System.out.println("m.getUsername() = " + m.getUsername());
-            }
             tx.commit();
         } catch(Exception e) {
             e.printStackTrace();
