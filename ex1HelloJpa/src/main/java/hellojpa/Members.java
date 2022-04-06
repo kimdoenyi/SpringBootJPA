@@ -1,7 +1,9 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 기존에 만들어둔 멤버가 삭제가 안돼서 Members 로 생성함
@@ -24,6 +26,10 @@ public class Members {
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
+
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
     public Long getId() {
         return id;
