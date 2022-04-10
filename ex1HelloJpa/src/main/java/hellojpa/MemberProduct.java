@@ -1,10 +1,14 @@
 package hellojpa;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class MemberProduct {
 
     @Id @GeneratedValue
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Members member;
 }

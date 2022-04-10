@@ -1,6 +1,7 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  *
  */
 @Entity
-public class Members {
+public class Members extends BaseEntity{
 
     @Id @GeneratedValue
     private Long id;    // pk 매핑
@@ -22,6 +23,15 @@ public class Members {
     @ManyToOne  // 멤버 기준에서 다대일 - 멤버 N : 팀 1
     @JoinColumn(name = "TEAM_ID")   // 외래키로 연관관계있으니까 매핑 필수 !
     private Team team;
+
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+    @OneToMany(mappedBy = "member") // mappedBy 대소문자 가림 ,, 충격
+    private List<MemberProduct> memberProduct = new ArrayList<>();
+
 
     public Long getId() {
         return id;
