@@ -22,12 +22,13 @@ public class JpaMain {
         // code
         try {
 
-           Members member = new Members();
-           member.setCreatedBy("kim");
-           member.setUsername("user1");
-           member.setCreatedDate(LocalDateTime.now());
+           Members member = em.find(Members.class, 1L);
+           // 멤버를 조회해오면 팀도 같이 조회해오는데 ,,
+            // 멤버정보만 보고싶다면 팀도 같이 가져오는게 성능측면에서 저하되는 행위
+           printMemberAndTeam(member);
+           printMember(member);
 
-            tx.commit();
+           tx.commit();
         } catch(Exception e) {
             e.printStackTrace();
             tx.rollback();
@@ -37,5 +38,17 @@ public class JpaMain {
 
         // code end
         emf.close();
+    }
+
+    private static void printMember(Members member) {
+        System.out.println("member.getUsername() = " + member.getUsername());
+    }
+
+    private static void printMemberAndTeam(Members member) {
+        String username = member.getUsername();
+        System.out.println("username = " + username);
+
+        Team team = member.getTeam();
+        System.out.println("team.getName() = " + team.getName());
     }
 }
