@@ -21,14 +21,23 @@ public class JpaMain {
 
         // code
         try {
+            Members member1 = new Members();
+            member1.setUsername("member1");
+            em.persist(member1);
 
-           Members member = em.find(Members.class, 1L);
-           // 멤버를 조회해오면 팀도 같이 조회해오는데 ,,
-            // 멤버정보만 보고싶다면 팀도 같이 가져오는게 성능측면에서 저하되는 행위
-           printMemberAndTeam(member);
-           printMember(member);
+            Members member2 = new Members();
+            member2.setUsername("member2");
+            em.persist(member2);
 
-           tx.commit();
+            em.flush();
+            em.clear();
+
+            Members m1 = em.find(Members.class, member1.getId());
+            Members m2 = em.find(Members.class, member2.getId());
+
+            System.out.println(" = " +(m1.getClass() == m2.getClass()));
+
+            tx.commit();
         } catch(Exception e) {
             e.printStackTrace();
             tx.rollback();
