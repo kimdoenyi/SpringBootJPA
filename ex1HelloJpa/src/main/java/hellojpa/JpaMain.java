@@ -21,22 +21,6 @@ public class JpaMain {
 
         // code
         try {
-            Members member1 = new Members();
-            member1.setUsername("member1");
-            em.persist(member1);
-
-            Members member2 = new Members();
-            member2.setUsername("member2");
-            em.persist(member2);
-
-            em.flush();
-            em.clear();
-
-            Members m1 = em.find(Members.class, member1.getId());
-            Members m2 = em.find(Members.class, member2.getId());
-
-            System.out.println(" = " +(m1.getClass() == m2.getClass()));
-
             tx.commit();
         } catch(Exception e) {
             e.printStackTrace();

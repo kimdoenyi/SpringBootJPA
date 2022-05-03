@@ -24,13 +24,27 @@ public class Members extends BaseEntity{
     @JoinColumn(name = "TEAM_ID")   // 외래키로 연관관계있으니까 매핑 필수 !
     private Team team;
 
-
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
     @OneToMany(mappedBy = "member") // mappedBy 대소문자 가림 ,, 충격
     private List<MemberProduct> memberProduct = new ArrayList<>();
+
+    // 기간
+    @Embedded
+    private Period workPeriod;
+
+    // 주소
+    @Embedded
+    private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name ="city", column=@Column(name = "WORK_CITY")),
+                        @AttributeOverride(name ="street", column=@Column(name = "WORK_STREET")),
+                        @AttributeOverride(name ="zipCode", column=@Column(name = "WORK_ZIP_CODE")),
+    })
+    private Address workAddress;
 
 
     public Long getId() {
