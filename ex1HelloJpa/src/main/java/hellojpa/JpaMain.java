@@ -23,7 +23,7 @@ public class JpaMain {
         try {
             // 여기서 멤버는 테이블이 아니고 엔티티
             List<Members> resultList = em.createQuery(
-                    "select m from MEMBERS m where m.username like '%kim%'",
+                    "select m from Members as m where m.username like '%kim%'",
                     Members.class).getResultList();
 
             for(Members member : resultList) {
