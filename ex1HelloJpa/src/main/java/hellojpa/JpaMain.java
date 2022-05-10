@@ -21,21 +21,14 @@ public class JpaMain {
 
         // code
         try {
-            Address address = new Address("city", "street", "10000");
+            // 여기서 멤버는 테이블이 아니고 엔티티
+            List<Members> resultList = em.createQuery(
+                    "select m from MEMBERS m where m.username like '%kim%'",
+                    Members.class).getResultList();
 
-            Members member = new Members();
-            member.setUsername("member1");
-            member.setHomeAddress(address);
-            em.persist(member);
-
-            // 값 복사해서 사용
-            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipCode());
-
-            Members member2 = new Members();
-            member2.setUsername("member2");
-            member2.setHomeAddress(copyAddress);
-            em.persist(member2);
-            member.getHomeAddress().setCity("newCity");
+            for(Members member : resultList) {
+                System.out.println("member = " + member);
+            }
 
             tx.commit();
         } catch(Exception e) {
