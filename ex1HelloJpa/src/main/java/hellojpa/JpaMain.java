@@ -4,6 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,14 +24,13 @@ public class JpaMain {
 
         // code
         try {
-            // 여기서 멤버는 테이블이 아니고 엔티티
-            List<Members> resultList = em.createQuery(
-                    "select m from Members as m where m.username like '%kim%'",
-                    Members.class).getResultList();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Members> query = cb.createQuery(Members.class);
 
-            for(Members member : resultList) {
-                System.out.println("member = " + member);
-            }
+            Root<Members> m = query.from(Members.class);
+            CriteriaQuery<Members> cq = query.select(m).where(cb.equal(m.get("username"), "kim"));
+
+            List<Members> resultList = em.createQuery(cq).getResultList();
 
             tx.commit();
         } catch(Exception e) {
