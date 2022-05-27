@@ -28,10 +28,17 @@ public class InitDb {
     static class InitService {
 
         private final EntityManager em;
-        public void dbInit1() {
+
+        private Member createMember() {
             Member member = new Member();
             member.setName("userA");
             member.setAddress(new Address("서울", "1", "11111"));
+
+            return member;
+        }
+
+        public void dbInit1() {
+            Member member = createMember();
             em.persist(member);
 
             Book book1 = new Book();
@@ -55,5 +62,7 @@ public class InitDb {
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
         }
+
+
     }
 }
