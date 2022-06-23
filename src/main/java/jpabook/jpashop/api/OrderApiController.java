@@ -3,6 +3,7 @@ package jpabook.jpashop.api;
 import jpabook.jpashop.domain.*;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.orders.query.OrderFlatDto;
+import jpabook.jpashop.repository.orders.query.OrderItemQueryDto;
 import jpabook.jpashop.repository.orders.query.OrderQueryDto;
 import jpabook.jpashop.repository.orders.query.OrderQueryRepository;
 import lombok.Data;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,7 +45,7 @@ public class OrderApiController {
 
         List<OrderDto> collect = orders.stream()
                 .map(o -> new OrderDto(o))
-                .collect(Collectors.toList());
+                .collect(toList());
 
         return collect;
 
@@ -58,7 +60,7 @@ public class OrderApiController {
         }
         return   orders.stream()
                 .map(o -> new OrderDto(o))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @GetMapping("/api/v3.1/orders")
@@ -69,7 +71,7 @@ public class OrderApiController {
 
         return   orders.stream()
                 .map(o -> new OrderDto(o))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @GetMapping("api/v4/orders")
@@ -87,7 +89,6 @@ public class OrderApiController {
     @GetMapping("api/v6/orders")
     public List<OrderFlatDto> ordersV6() {
         return orderQueryRepository.findAllByDto_flat();
-
     }
 
     @Data
@@ -107,7 +108,7 @@ public class OrderApiController {
             address = order.getDelivery().getAddress();
             orderItems = order.getOrderItems().stream()
                     .map(orderItem -> new OrderItemDto(orderItem))
-                    .collect(Collectors.toList());
+                    .collect(toList());
         }
     }
 
